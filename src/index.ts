@@ -16,6 +16,7 @@ export default function flushableImportPlugin({
   const loadTemplate = template(
     '() => Promise.all([IMPORT]).then(proms => proms[0])'
   )
+  const chunkNameTemplate = template('() => MODULE')
 
   return {
     name: 'flushable-import',
@@ -39,7 +40,7 @@ export default function flushableImportPlugin({
           loadProperty(np, chunkName, loadTemplate as any, t),
           // resolve
           // path
-          // chunkName
+          chunkNameProperty(chunkName, t),
         ]
 
         const config = t.objectExpression(configProperties)
@@ -76,7 +77,12 @@ function resolveProperty() {}
 
 function pathProperty() {}
 
-function chunkNameProperty() {}
+function chunkNameProperty(chunkName: string, types: typeof typesNS) {
+  return types.objectProperty(
+    types.identifier('chunkName'),
+    types.stringLiteral(chunkName)
+  )
+}
 
 function extractChunkName(importNP: NodePath<typesNS.Import>) {
   const argNP = getImportNodePathArgNodePath(importNP)

@@ -16,6 +16,7 @@ _flushableImport({
         "./Foo"
       ),
     ]).then((proms) => proms[0]),
+  chunkName: "Bar",
 });
 
 
@@ -39,6 +40,7 @@ _flushableImport({
         "one"
       ),
     ]).then((proms) => proms[0]),
+  chunkName: "one",
 });
 
 _flushableImport2({
@@ -49,6 +51,7 @@ _flushableImport2({
         "two"
       ),
     ]).then((proms) => proms[0]),
+  chunkName: "two",
 });
 
 _flushableImport3({
@@ -59,6 +62,7 @@ _flushableImport3({
         "three"
       ),
     ]).then((proms) => proms[0]),
+  chunkName: "three",
 });
 
 
@@ -80,6 +84,7 @@ _flushableImport({
         "./Foo.js"
       ),
     ]).then((proms) => proms[0]),
+  chunkName: "Foo",
 });
 
 
@@ -101,6 +106,7 @@ _flushableImport({
         "../../Foo"
       ),
     ]).then((proms) => proms[0]),
+  chunkName: "Foo",
 });
 
 
@@ -122,6 +128,7 @@ _flushableImport({
         "./Foo"
       ),
     ]).then((proms) => proms[0]),
+  chunkName: "Foo",
 });
 
 
