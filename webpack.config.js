@@ -1,3 +1,5 @@
+const nodeExternals = require('webpack-node-externals')
+
 module.exports = {
   mode: 'production',
   entry: {
@@ -9,6 +11,7 @@ module.exports = {
       type: 'commonjs',
     },
   },
+  externals: [nodeExternals()],
   module: {
     rules: [
       {
