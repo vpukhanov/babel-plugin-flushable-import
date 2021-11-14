@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns given config 1`] = `
+Object {
+  "catch": [Function],
+  "chunkName": "<chunkName>",
+  "load": [Function],
+  "path": [Function],
+  "resolve": [Function],
+  "then": [Function],
+}
+`;
