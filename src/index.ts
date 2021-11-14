@@ -1,4 +1,4 @@
-import type typesNs from '@babel/types'
+import * as typesNs from '@babel/types'
 import type templateFn from '@babel/template'
 import type { Visitor, NodePath } from '@babel/traverse'
 
