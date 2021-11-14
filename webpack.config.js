@@ -4,6 +4,11 @@ module.exports = {
     main: './src/index.ts',
     'flushable-import': './src/flushable-import.ts',
   },
+  output: {
+    library: {
+      type: 'commonjs',
+    },
+  },
   module: {
     rules: [
       {
