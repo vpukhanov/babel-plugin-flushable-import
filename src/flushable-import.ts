@@ -1,16 +1,18 @@
-export type FlushableImportConfig<T> = {
+type FlushableImportConfig<T> = {
   load: () => Promise<T>
   resolve: () => string | number
   path: () => string
   chunkName: string
 }
 
-export default function flushableImport<T>(
-  config: FlushableImportConfig<T>
-): FlushableImportConfig<T> & {
+export type FlushableImportReturn<T> = FlushableImportConfig<T> & {
   then: (cb: (mod: T) => void) => void
   catch: (cb: (err: Error) => void) => void
-} {
+}
+
+export default function flushableImport<T>(
+  config: FlushableImportConfig<T>
+): FlushableImportReturn<T> {
   const { load } = config
   return {
     ...config,
