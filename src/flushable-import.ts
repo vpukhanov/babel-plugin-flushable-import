@@ -1,4 +1,4 @@
-type FlushableImportConfig<T> = {
+export type FlushableImportConfig<T> = {
   load: () => Promise<T>
   resolve: () => string | number
   path: () => string
