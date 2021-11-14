@@ -1,6 +1,6 @@
 import { addDefault as addDefaultImport } from '@babel/helper-module-imports'
 
-import type * as typesNs from '@babel/types'
+import type * as typesNS from '@babel/types'
 import type templateFn from '@babel/template'
 import type { Visitor, NodePath } from '@babel/traverse'
 
@@ -8,12 +8,14 @@ export default function flushableImportPlugin({
   types: t,
   template,
 }: {
-  types: typeof typesNs
+  types: typeof typesNS
   template: typeof templateFn
 }): { name: string; visitor: Visitor } {
   const visited = Symbol('visited')
 
-  let chunkName: string | null = null
+  const loadTemplate = template(
+    '() => Promise.all([IMPORT]).then(proms => proms[0])'
+  )
 
   return {
     name: 'flushable-import',
@@ -25,7 +27,7 @@ export default function flushableImportPlugin({
 
         np[visited] = true
 
-        chunkName = extractChunkName(np)
+        const existingChunkName = extractChunkName(np)
 
         const flushableImport = addDefaultImport(
           np,
@@ -34,7 +36,7 @@ export default function flushableImportPlugin({
         )
 
         const configProperties = [
-          // load
+          loadProperty(np, existingChunkName, loadTemplate as any, t),
           // resolve
           // path
           // chunkName
@@ -44,15 +46,29 @@ export default function flushableImportPlugin({
 
         const call = t.callExpression(flushableImport, [config])
 
-        chunkName = null
-
         np.parentPath.replaceWith(call)
       },
     },
   }
 }
 
-function loadProperty() {}
+function loadProperty(
+  importNP: NodePath<typesNS.Import>,
+  existingChunkName: string,
+  template: (arg: Record<string, unknown>) => {
+    expression: typesNS.Expression
+  },
+  types: typeof typesNS
+) {
+  const argNP = getImportNodePathArgNodePath(importNP)
+  const chunkName = existingChunkName || generateChunkName(importNP)
+
+  argNP.addComment('leading', ` webpackChunkName: '${chunkName}' `)
+
+  const loadFnCall = template({ IMPORT: argNP.parent }).expression
+
+  return types.objectProperty(types.identifier('load'), loadFnCall)
+}
 
 function resolveProperty() {}
 
@@ -60,10 +76,8 @@ function pathProperty() {}
 
 function chunkNameProperty() {}
 
-function extractChunkName(importNp: NodePath<typesNs.Import>) {
-  const argNP = importNp.parentPath.get(
-    'arguments'
-  )[0] as NodePath<typesNs.Node>
+function extractChunkName(importNP: NodePath<typesNS.Import>) {
+  const argNP = getImportNodePathArgNodePath(importNP)
   const argN = argNP.node
   const { leadingComments } = argN
 
@@ -80,4 +94,19 @@ function extractChunkName(importNp: NodePath<typesNs.Import>) {
   }
 
   return null
+}
+
+function generateChunkName(importNP: NodePath<typesNS.Import>) {
+  const argNP = getImportNodePathArgNodePath(importNP)
+  return makeChunkNameFromArbitraryString(
+    (argNP.node as typesNS.StringLiteral).value
+  )
+}
+
+function makeChunkNameFromArbitraryString(str: string) {
+  return str.replace(/^[./]+|(\.js$)/g, '')
+}
+
+function getImportNodePathArgNodePath(importNP: NodePath<typesNS.Import>) {
+  return importNP.parentPath.get('arguments')[0] as NodePath<typesNS.Node>
 }
