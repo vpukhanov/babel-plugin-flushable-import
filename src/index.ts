@@ -1,4 +1,6 @@
-import * as typesNs from '@babel/types'
+import { addDefault as addDefaultImport } from '@babel/helper-module-imports'
+
+import type * as typesNs from '@babel/types'
 import type templateFn from '@babel/template'
 import type { Visitor, NodePath } from '@babel/traverse'
 
@@ -24,6 +26,12 @@ export default function flushableImportPlugin({
         np[visited] = true
 
         chunkName = extractChunkName(np)
+
+        const flushableImport = addDefaultImport(
+          np,
+          '@vpukhanov/babel-plugin-flushable-import/flushable-import',
+          { nameHint: 'flushableImport' }
+        )
       },
     },
   }

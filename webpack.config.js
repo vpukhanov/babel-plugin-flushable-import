@@ -3,7 +3,7 @@ const nodeExternals = require('webpack-node-externals')
 module.exports = {
   mode: 'production',
   entry: {
-    main: './src/index.ts',
+    index: './src/index.ts',
     'flushable-import': './src/flushable-import.ts',
   },
   output: {
