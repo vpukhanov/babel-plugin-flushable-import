@@ -2,7 +2,7 @@
 
 exports[`flushable-import existing chunkName: existing chunkName 1`] = `
 
-import(/* webpackChunkName: 'Bar' */"./Foo")
+import(/* webpackChunkName: 'Bar' */ "./Foo")
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
