@@ -27,7 +27,7 @@ export default function flushableImportPlugin({
 
         np[visited] = true
 
-        const existingChunkName = extractChunkName(np)
+        const chunkName = extractChunkName(np) || generateChunkName(np)
 
         const flushableImport = addDefaultImport(
           np,
@@ -36,7 +36,7 @@ export default function flushableImportPlugin({
         )
 
         const configProperties = [
-          loadProperty(np, existingChunkName, loadTemplate as any, t),
+          loadProperty(np, chunkName, loadTemplate as any, t),
           // resolve
           // path
           // chunkName
@@ -54,14 +54,13 @@ export default function flushableImportPlugin({
 
 function loadProperty(
   importNP: NodePath<typesNS.Import>,
-  existingChunkName: string,
+  chunkName: string,
   template: (arg: Record<string, unknown>) => {
     expression: typesNS.Expression
   },
   types: typeof typesNS
 ) {
   const argNP = getImportNodePathArgNodePath(importNP)
-  const chunkName = existingChunkName || generateChunkName(importNP)
 
   argNP.node.leadingComments = argNP.node.leadingComments?.filter(
     commentN => commentN.value?.includes('webpackChunkName:') === false
