@@ -6,5 +6,5 @@ declare module '@babel/helper-module-imports' {
     path: NodePath,
     source: string,
     opts?: Partial<{ nameHint: string }>
-  ): typesNs.Node
+  ): typesNs.Expression
 }

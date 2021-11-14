@@ -4,8 +4,6 @@ import type * as typesNs from '@babel/types'
 import type templateFn from '@babel/template'
 import type { Visitor, NodePath } from '@babel/traverse'
 
-const visited = Symbol('visited')
-
 export default function flushableImportPlugin({
   types: t,
   template,
@@ -13,6 +11,8 @@ export default function flushableImportPlugin({
   types: typeof typesNs
   template: typeof templateFn
 }): { name: string; visitor: Visitor } {
+  const visited = Symbol('visited')
+
   let chunkName: string | null = null
 
   return {
@@ -32,10 +32,33 @@ export default function flushableImportPlugin({
           '@vpukhanov/babel-plugin-flushable-import/flushable-import',
           { nameHint: 'flushableImport' }
         )
+
+        const configProperties = [
+          // load
+          // resolve
+          // path
+          // chunkName
+        ]
+
+        const config = t.objectExpression(configProperties)
+
+        const call = t.callExpression(flushableImport, [config])
+
+        chunkName = null
+
+        np.parentPath.replaceWith(call)
       },
     },
   }
 }
+
+function loadProperty() {}
+
+function resolveProperty() {}
+
+function pathProperty() {}
+
+function chunkNameProperty() {}
 
 function extractChunkName(importNp: NodePath<typesNs.Import>) {
   const argNP = importNp.parentPath.get(
