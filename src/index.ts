@@ -67,7 +67,7 @@ function extractChunkName(importNp: NodePath<typesNs.Import>) {
   const argN = argNP.node
   const { leadingComments } = argN
 
-  if (leadingComments.length > 0) {
+  if (leadingComments && leadingComments.length > 0) {
     const magicComment = leadingComments[0].value
     const chunkNameMarkIdx = magicComment.indexOf('webpackChunkName:')
 

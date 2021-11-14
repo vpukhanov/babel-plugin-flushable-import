@@ -1,0 +1,192 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`flushable-import dynamic import (string template + relative paths): dynamic import (string template + relative paths) 1`] = `
+
+import(\`../../base/\${page}\`)
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _flushableImport from "@vpukhanov/babel-plugin-flushable-import/flushable-import";
+
+_flushableImport({});
+
+
+`;
+
+exports[`flushable-import dynamic import (string template - dynamic at 1st segment): dynamic import (string template - dynamic at 1st segment) 1`] = `
+
+import(\`./\${page}\`)
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _flushableImport from "@vpukhanov/babel-plugin-flushable-import/flushable-import";
+
+_flushableImport({});
+
+
+`;
+
+exports[`flushable-import dynamic import (string template with multiple nested folders): dynamic import (string template with multiple nested folders) 1`] = `
+
+import(\`./base/\${page}/nested/{$another}folder\`)
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _flushableImport from "@vpukhanov/babel-plugin-flushable-import/flushable-import";
+
+_flushableImport({});
+
+
+`;
+
+exports[`flushable-import dynamic import (string template with nested folder): dynamic import (string template with nested folder) 1`] = `
+
+import(\`./base/\${page}/nested/folder\`)
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _flushableImport from "@vpukhanov/babel-plugin-flushable-import/flushable-import";
+
+_flushableImport({});
+
+
+`;
+
+exports[`flushable-import dynamic import (string template): dynamic import (string template) 1`] = `
+
+import(\`./base/\${page}\`)
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _flushableImport from "@vpukhanov/babel-plugin-flushable-import/flushable-import";
+
+_flushableImport({});
+
+
+`;
+
+exports[`flushable-import existing chunkName: existing chunkName 1`] = `
+
+import(/* webpackChunkName: 'Bar' */"./Foo")
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _flushableImport from "@vpukhanov/babel-plugin-flushable-import/flushable-import";
+
+_flushableImport({});
+
+
+`;
+
+exports[`flushable-import multiple imports: multiple imports 1`] = `
+
+import("one"); import("two"); import("three");
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _flushableImport3 from "@vpukhanov/babel-plugin-flushable-import/flushable-import";
+import _flushableImport2 from "@vpukhanov/babel-plugin-flushable-import/flushable-import";
+import _flushableImport from "@vpukhanov/babel-plugin-flushable-import/flushable-import";
+
+_flushableImport({});
+
+_flushableImport2({});
+
+_flushableImport3({});
+
+
+`;
+
+exports[`flushable-import static import (import as function with relative paths + nested folder): static import (import as function with relative paths + nested folder) 1`] = `
+
+const obj = {component:()=>import(\`../components/nestedComponent\`)}; ()=> obj.component()
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _flushableImport from "@vpukhanov/babel-plugin-flushable-import/flushable-import";
+const obj = {
+  component: () => _flushableImport({}),
+};
+
+() => obj.component();
+
+
+`;
+
+exports[`flushable-import static import (relative paths + nested folder): static import (relative paths + nested folder) 1`] = `
+
+import(\`../components/nestedComponent\`)
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _flushableImport from "@vpukhanov/babel-plugin-flushable-import/flushable-import";
+
+_flushableImport({});
+
+
+`;
+
+exports[`flushable-import static import (string template + relative paths): static import (string template + relative paths) 1`] = `
+
+import(\`../../base\`)
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _flushableImport from "@vpukhanov/babel-plugin-flushable-import/flushable-import";
+
+_flushableImport({});
+
+
+`;
+
+exports[`flushable-import static import (string template): static import (string template) 1`] = `
+
+import(\`./base\`)
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _flushableImport from "@vpukhanov/babel-plugin-flushable-import/flushable-import";
+
+_flushableImport({});
+
+
+`;
+
+exports[`flushable-import static import (with file extension): static import (with file extension) 1`] = `
+
+import("./Foo.js")
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _flushableImport from "@vpukhanov/babel-plugin-flushable-import/flushable-import";
+
+_flushableImport({});
+
+
+`;
+
+exports[`flushable-import static import (with relative paths): static import (with relative paths) 1`] = `
+
+import("../../Foo")
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _flushableImport from "@vpukhanov/babel-plugin-flushable-import/flushable-import";
+
+_flushableImport({});
+
+
+`;
+
+exports[`flushable-import static import: static import 1`] = `
+
+import("./Foo")
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _flushableImport from "@vpukhanov/babel-plugin-flushable-import/flushable-import";
+
+_flushableImport({});
+
+
+`;
