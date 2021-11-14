@@ -16,7 +16,8 @@ export default function flushableImportPlugin({
   const loadTemplate = template(
     '() => Promise.all([IMPORT]).then(proms => proms[0])'
   )
-  const chunkNameTemplate = template('() => MODULE')
+  const resolveTemplate = template('() => require.resolveWeak(MODULE)')
+  const pathTemplate = template('() => PATH.join(__dirname, MODULE)')
 
   return {
     name: 'flushable-import',
@@ -38,8 +39,8 @@ export default function flushableImportPlugin({
 
         const configProperties = [
           loadProperty(np, chunkName, loadTemplate as any, t),
-          // resolve
-          // path
+          resolveProperty(np, resolveTemplate as any, t),
+          pathProperty(np, pathTemplate as any, t),
           chunkNameProperty(chunkName, t),
         ]
 
@@ -73,9 +74,36 @@ function loadProperty(
   return types.objectProperty(types.identifier('load'), loadFnCall)
 }
 
-function resolveProperty() {}
+function resolveProperty(
+  importNP: NodePath<typesNS.Import>,
+  template: (arg: Record<string, unknown>) => {
+    expression: typesNS.Expression
+  },
+  types: typeof typesNS
+) {
+  const argNP = getImportNodePathArgNodePath(importNP)
 
-function pathProperty() {}
+  const resolveFnCall = template({ MODULE: argNP.node }).expression
+
+  return types.objectProperty(types.identifier('resolve'), resolveFnCall)
+}
+
+function pathProperty(
+  importNP: NodePath<typesNS.Import>,
+  template: (arg: Record<string, unknown>) => {
+    expression: typesNS.Expression
+  },
+  types: typeof typesNS
+) {
+  const argNP = getImportNodePathArgNodePath(importNP)
+
+  const pathFnCall = template({
+    PATH: addDefaultImport(importNP, 'path', { nameHint: 'path' }),
+    MODULE: argNP.node,
+  }).expression
+
+  return types.objectProperty(types.identifier('path'), pathFnCall)
+}
 
 function chunkNameProperty(chunkName: string, types: typeof typesNS) {
   return types.objectProperty(

@@ -6,6 +6,7 @@ import(/* webpackChunkName: 'Bar' */"./Foo")
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
+import _path from "path";
 import _flushableImport from "@vpukhanov/babel-plugin-flushable-import/flushable-import";
 
 _flushableImport({
@@ -16,6 +17,8 @@ _flushableImport({
         "./Foo"
       ),
     ]).then((proms) => proms[0]),
+  resolve: () => require.resolveWeak("./Foo"),
+  path: () => _path.join(__dirname, "./Foo"),
   chunkName: "Bar",
 });
 
@@ -28,8 +31,11 @@ import("one"); import("two"); import("three");
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
+import _path3 from "path";
 import _flushableImport3 from "@vpukhanov/babel-plugin-flushable-import/flushable-import";
+import _path2 from "path";
 import _flushableImport2 from "@vpukhanov/babel-plugin-flushable-import/flushable-import";
+import _path from "path";
 import _flushableImport from "@vpukhanov/babel-plugin-flushable-import/flushable-import";
 
 _flushableImport({
@@ -40,6 +46,8 @@ _flushableImport({
         "one"
       ),
     ]).then((proms) => proms[0]),
+  resolve: () => require.resolveWeak("one"),
+  path: () => _path.join(__dirname, "one"),
   chunkName: "one",
 });
 
@@ -51,6 +59,8 @@ _flushableImport2({
         "two"
       ),
     ]).then((proms) => proms[0]),
+  resolve: () => require.resolveWeak("two"),
+  path: () => _path2.join(__dirname, "two"),
   chunkName: "two",
 });
 
@@ -62,6 +72,8 @@ _flushableImport3({
         "three"
       ),
     ]).then((proms) => proms[0]),
+  resolve: () => require.resolveWeak("three"),
+  path: () => _path3.join(__dirname, "three"),
   chunkName: "three",
 });
 
@@ -74,6 +86,7 @@ import("./Foo.js")
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
+import _path from "path";
 import _flushableImport from "@vpukhanov/babel-plugin-flushable-import/flushable-import";
 
 _flushableImport({
@@ -84,6 +97,8 @@ _flushableImport({
         "./Foo.js"
       ),
     ]).then((proms) => proms[0]),
+  resolve: () => require.resolveWeak("./Foo.js"),
+  path: () => _path.join(__dirname, "./Foo.js"),
   chunkName: "Foo",
 });
 
@@ -96,6 +111,7 @@ import("../../Foo")
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
+import _path from "path";
 import _flushableImport from "@vpukhanov/babel-plugin-flushable-import/flushable-import";
 
 _flushableImport({
@@ -106,6 +122,8 @@ _flushableImport({
         "../../Foo"
       ),
     ]).then((proms) => proms[0]),
+  resolve: () => require.resolveWeak("../../Foo"),
+  path: () => _path.join(__dirname, "../../Foo"),
   chunkName: "Foo",
 });
 
@@ -118,6 +136,7 @@ import("./Foo")
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
+import _path from "path";
 import _flushableImport from "@vpukhanov/babel-plugin-flushable-import/flushable-import";
 
 _flushableImport({
@@ -128,6 +147,8 @@ _flushableImport({
         "./Foo"
       ),
     ]).then((proms) => proms[0]),
+  resolve: () => require.resolveWeak("./Foo"),
+  path: () => _path.join(__dirname, "./Foo"),
   chunkName: "Foo",
 });
 
