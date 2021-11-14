@@ -1,6 +1,9 @@
 module.exports = {
   mode: 'production',
-  entry: './src/index.ts',
+  entry: {
+    main: './src/index.ts',
+    'flushable-import': './src/flushable-import.ts',
+  },
   module: {
     rules: [
       {
