@@ -2,7 +2,7 @@
   "name": "@vpukhanov/babel-plugin-flushable-import",
   "version": "0.0.1",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack && tsc"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
