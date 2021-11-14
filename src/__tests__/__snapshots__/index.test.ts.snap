@@ -13,8 +13,6 @@ _flushableImport({
     Promise.all([
       import(
         /* webpackChunkName: 'Bar' */
-
-        /* webpackChunkName: 'Bar' */
         "./Foo"
       ),
     ]).then((proms) => proms[0]),

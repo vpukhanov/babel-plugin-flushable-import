@@ -63,6 +63,9 @@ function loadProperty(
   const argNP = getImportNodePathArgNodePath(importNP)
   const chunkName = existingChunkName || generateChunkName(importNP)
 
+  argNP.node.leadingComments = argNP.node.leadingComments?.filter(
+    commentN => commentN.value?.includes('webpackChunkName:') === false
+  )
   argNP.addComment('leading', ` webpackChunkName: '${chunkName}' `)
 
   const loadFnCall = template({ IMPORT: argNP.parent }).expression
